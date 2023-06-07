@@ -30,8 +30,8 @@ public class DataHelper {
 
     @Value
     public static class InfoCard {
-        String cardNumber;
-        String dataTestId;
+        private String cardNumber;
+        private String dataTestId;
     }
 
     public static InfoCard getFirstCard() {
