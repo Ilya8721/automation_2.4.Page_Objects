@@ -21,10 +21,10 @@ public class MoneyTransfer {
         heading.shouldBe(visible);
     }
 
-    public DashboardPage topUpBalance(int amount, DataHelper.CardNumber cardNumber) {
+    public DashboardPage topUpBalance(int amount, DataHelper.InfoCard card) {
         amountField.sendKeys(Keys.LEFT_SHIFT, Keys.HOME, Keys.BACK_SPACE);
         amountField.setValue(amount + "");
-        fromField.setValue(String.valueOf(cardNumber));
+        fromField.setValue(card.getCardNumber());
         topUpButton.click();
 
         return new DashboardPage();

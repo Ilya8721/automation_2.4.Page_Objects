@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.val;
 import ru.netology.data.DataHelper;
 
+import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -22,22 +23,16 @@ public class DashboardPage {
     heading.shouldBe(visible);
   }
 
-  public MoneyTransfer topUpButtonClick(DataHelper.CardNumber card) {
-    findCard(card).$(cssLocatorForTopUpButton).click();
+  public MoneyTransfer topUpButtonClick(DataHelper.InfoCard card) {
+    cards.findBy(attribute("data-test-id", card.getDataTestId())).$(cssLocatorForTopUpButton).click();
     return new MoneyTransfer();
   }
 
-  public SelenideElement findCard(DataHelper.CardNumber card) {
-    String cardNumber = card.getCardNumber().substring(15);
-    for (SelenideElement element : cards) {
-      if (element.text().contains(cardNumber)) {
-        return element;
-      }
-    }
-    return null;
+  public SelenideElement findCard(DataHelper.InfoCard card) {
+    return cards.findBy(attribute("data-test-id", card.getDataTestId()));
   }
 
-  public int getCardBalance(DataHelper.CardNumber card) {
+  public int getCardBalance(DataHelper.InfoCard card) {
     val text = findCard(card).text();
     return extractBalance(text);
   }
